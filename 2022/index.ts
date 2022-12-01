@@ -1,4 +1,3 @@
-import { rejects } from 'node:assert';
 import * as fs from 'node:fs/promises';
 import * as https from 'node:https';
 import { argv, exit, env } from 'process';
@@ -13,7 +12,7 @@ async function fetchInput(day: number) {
         }
         let content = await new Promise<string>((resolve, reject) => {
             https.get(
-                `https://adventofcode.com/2022/day/${day}/input`,
+                `https://adventofcode.com/2022/day/${String(day).padStart(2, '0')}/input`,
                 {
                     headers: {
                         cookie: `session=${env['AOC_SESSION']}`,
@@ -57,15 +56,18 @@ async function fetchOrCreateSolver(day: number): Promise<Solver> {
 }
 
 async function main() {
-    if (argv.length != 3) {
-        console.log('Usage: node . <day number>');
+    let day;
+    if (argv.length == 2) {
+        day = new Date().getDate();
+    } else if (argv.length == 3) {
+        day = parseInt(argv[2]);
+        if (isNaN(day) || day < 1 || day > 31) {
+            console.log('Invalid day! Please enter a number between 1 and 31');
+            exit(1);
+        }
+    } else {
+        console.log('Usage: node . [day number]');
         exit(0);
-    }
-
-    let day = parseInt(argv[2]);
-    if (isNaN(day) || day < 1 || day > 31) {
-        console.log('Invalid day! Please enter a number between 1 and 31');
-        exit(1);
     }
 
     let path = `${String(day).padStart(2, '0')}/`;
