@@ -12,7 +12,7 @@ async function fetchInput(day: number) {
         }
         let content = await new Promise<string>((resolve, reject) => {
             https.get(
-                `https://adventofcode.com/2022/day/${String(day).padStart(2, '0')}/input`,
+                `https://adventofcode.com/2022/day/${day}/input`,
                 {
                     headers: {
                         'User-Agent': 'https://github.com/exdeejay/aoc - DJ#4623 on discord',
@@ -45,7 +45,7 @@ const defaultSolver = `function solve1(input: string) {
 `;
 
 async function fetchOrCreateSolver(day: number): Promise<Solver> {
-    let path = `${String(day).padStart(2, '0')}/solve.ts`;
+    let path = `./${String(day).padStart(2, '0')}/solve.ts`;
     try {
         await fs.stat(path);
     } catch (err) {
