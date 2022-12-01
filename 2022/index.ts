@@ -15,7 +15,8 @@ async function fetchInput(day: number) {
                 `https://adventofcode.com/2022/day/${String(day).padStart(2, '0')}/input`,
                 {
                     headers: {
-                        cookie: `session=${env['AOC_SESSION']}`,
+                        'User-Agent': 'https://github.com/exdeejay/aoc - DJ#4623 on discord',
+                        'Cookie': `session=${env['AOC_SESSION']}`,
                     },
                 },
                 (res) => {
