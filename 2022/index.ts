@@ -39,7 +39,7 @@ interface Solver {
     solve2?: (input: string) => void;
 }
 
-const defaultSolver = `function solve1(input: string) {
+const defaultSolver = `export function solve1(input: string) {
     let lines = input.split('\\n');
 }
 `;
